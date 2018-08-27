@@ -3,7 +3,7 @@ RM = rm -rf
 SRC_DIR=src
 BIN_DIR=bin
 LIB_DIR=lib/libsvm-3.17
-
+MALINE=`pwd`
 SRCS = $(SRC_DIR)/parse-strace-log.cpp $(SRC_DIR)/sparsify.cpp $(SRC_DIR)/create_datasets.cpp $(SRC_DIR)/transforms_data.cpp $(SRC_DIR)/create_datasets_cv.cpp
 _OBJS = $(subst .cpp,,$(SRCS))
 OBJS = $(patsubst $(SRC_DIR)%,$(BIN_DIR)%,$(_OBJS))
@@ -24,8 +24,8 @@ libsvm:
 scripts:
 	find $(SRC_DIR) -not -name "*.cpp" -type f -print0 | xargs -0 cp -t $(BIN_DIR)
 
-R:
-	env/emulab/prepare-dataanalysis.sh
+R:	
+	MALINE=$(MALINE) env/emulab/prepare-dataanalysis.sh
 
 clean:
 	$(RM) $(BIN_DIR)
